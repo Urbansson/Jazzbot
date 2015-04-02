@@ -1,0 +1,470 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>JazzBot (BETA)</title>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"></link> 
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"></link>
+        <link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/superhero/bootstrap.min.css" rel="stylesheet"></link>
+        <h:outputStylesheet library="css" name="custom.css" />
+        <h:outputStylesheet library="css" name="powerange.css" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+    </h:head>
+    <h:body>
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">JazzBot (BETA)</a>
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+
+                <div class="navbar-collapse collapse" id="navbar-main">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a id="infobutton">Info</a>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a id="addSongButton">Add a Song</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+
+            <div class="page-header" >
+                <div class="row">
+                    <div class="col-lg-8 col-md-7 col-sm-6">
+                        <h1>Welcome to JazzBot!</h1>
+                        <!--<p class="lead">This is Nebuchadnezzar Teamspeak JazzBot</p>-->
+                    </div>
+                </div>
+            </div> 
+
+            <div class="current page-header" >
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="bs-component">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#nowPlaying" data-toggle="tab">Now Playing!</a></li>
+                                <li><a href="#comingUp" data-toggle="tab">Coming Up!</a></li> 
+                            </ul>
+
+                            <div id="myTabContent" class="tab-content">
+                                <div class="tab-pane fade active in" id="nowPlaying">
+
+
+                                    <div class="col-md-6 col-md-offset-3 currently-playing-responsive">
+                                        <h:form id="playController">
+                                            <h:panelGroup id="currentlyPlaying" layout="block">
+
+
+                                                <div class="row" style="margin: 0 auto;">
+                                                    <div class="cover-img-container">
+                                                        <img src="#{spotifyControllerBean.currentlyPlaying.albumCoverUrlLarge}" class="img-responsive-custom" ></img>         
+                                                        <div class="track-info-container">
+                                                            <h3 style="margin-bottom: 25px;">
+                                                                <span class="track-info-text">#{spotifyControllerBean.currentlyPlaying.title}</span>
+                                                            </h3>
+                                                            <p>
+                                                                <span class="track-info-text">#{spotifyControllerBean.currentlyPlaying.artists}</span>
+                                                            </p> 
+                                                        </div>
+
+                                                        <div class="volume-container">
+                                                            <div class="btn-group-vertical">
+                                                                <p:commandLink type="submit" styleClass="btn btn-default " action="#{spotifyControllerBean.volumeUp()}" update="currentlyPlaying">
+                                                                    <i class=" fa fa-volume-up" > </i>
+                                                                </p:commandLink>                                                                     <div class="btn btn-default">#{spotifyControllerBean.currentlyPlaying.volume}</div>
+                                                                <p:commandLink type="submit" styleClass="btn btn-default " action="#{spotifyControllerBean.volumeDown()}" update="currentlyPlaying">
+                                                                    <i class=" fa fa-volume-down" > </i>
+                                                                </p:commandLink>      
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row" style="margin: 0 auto;">
+                                                    <div class="bs-component " style="margin-bottom: 15px;">
+
+                                                        <div class="btn-group btn-group-justified ">
+                                                            <p:commandLink type="submit" styleClass="btn btn-default btn-lg" action="#{spotifyControllerBean.prevTrack()}" update="currentlyPlaying">
+                                                                <i class="fa fa-fast-backward"></i>
+                                                            </p:commandLink>
+
+
+                                                            <p:commandLink  type="submit" styleClass="btn btn-default btn-lg" action="#{spotifyControllerBean.playPause()}" update="currentlyPlaying">
+
+                                                                <h:panelGroup rendered="#{!spotifyControllerBean.currentlyPlaying.playing}" layout="block">
+
+                                                                    <i class="fa fa-play"></i>
+                                                                </h:panelGroup>
+
+                                                                <h:panelGroup rendered="#{spotifyControllerBean.currentlyPlaying.playing}" layout="block">
+                                                                    <i class="fa fa-pause"></i>
+                                                                </h:panelGroup>
+
+                                                            </p:commandLink>
+
+                                                            <p:commandLink type="submit" styleClass="btn btn-default btn-lg" action="#{spotifyControllerBean.nextTrack()}" update="currentlyPlaying">
+                                                                <i class="fa fa-fast-forward"></i>
+                                                            </p:commandLink>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </h:panelGroup>
+
+                                        </h:form>
+
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane fade" id="comingUp">
+                                    <div class="col-md-12 " style="margin-top: 10px;">
+                                        <div class="bs-component">
+
+                                            <div class="list-group" id="comingUpList">
+                                                <h:panelGroup id="playQueue" layout="block">
+
+                                                    <ui:repeat value="#{spotifyControllerBean.queue}" var="track" varStatus="status">
+                                                        <div class="list-group-item search-result-item" >
+                                                            <div class="relative">
+
+                                                                <div class="pull-right ">
+                                                                    <p:commandButton type="submit" styleClass="btn btn-primary" value="Play Now!" action="#{spotifyControllerBean.playNow(status.index,track.id)}" update=":playQueue :script"/>
+                                                                    <p:commandButton type="submit" styleClass="btn btn-danger" value="Remove" action="#{spotifyControllerBean.removeFromQueue(status.index)}" update=":playQueue :script"/>
+
+                                                                </div>
+                                                                <div class="pull-left sample-img-container" track-id="#{track.id}">
+                                                                    <img src="#{track.albumCoverUrlSmall}"/>
+
+                                                                    <div class="sample-status-container">
+                                                                        <i class="fa fa-pause sample-status-text" id="statusIcon"></i>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="inline-block user-info">
+                                                                    <h2 style="margin-top: 10px;">#{track.title}</h2>
+                                                                    <h4>#{track.artists}</h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="list-devider"/>
+
+                                                    </ui:repeat>
+                                                </h:panelGroup>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /container -->
+
+        <!-- Modals
+        ================================================== -->
+
+        <div class="modal fade" id="infoModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">JazzBot</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <h5>Info </h5>
+                        <p>
+                            <a href="ts3server://78.73.239.37">Find me here</a>
+                            <br/>
+                            "Have you ever dreamt of being a legendary DJ? <br/>
+                            Me neither, but here you can pause and play songs. Close enough, right?"
+                            <br/>
+                            <!--<a href="http://nebu.guildlaunch.com/">Nebuchadnezzar guild</a>-->
+                            <br/>
+                        </p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button id="addChoice" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div class="modal fade " id="addSongModal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Add a Song</h4>
+                    </div>
+                    <div class="modal-body">
+
+                        <h:form>
+                            <div class="form-group">
+                                <label class="control-label">Search</label>
+                                <div class="input-group">
+                                    <p:inputText  id="trackSearchQuery" value="#{spotifyWebApi.trackSearchQuery}" styleClass="form-control trackSearchQuery" placeholder="" tabindex="2"/>
+                                    <span class="input-group-btn">
+                                        <p:commandButton type="submit" styleClass="btn btn-primary" value="Search" action="#{spotifyWebApi.searchTrack()}" update="searchResults, :script" onsuccess="searchScrollBar()" onstart="stopMusic()"/>
+                                    </span>
+                                </div>
+                            </div>
+
+
+
+                            <h:panelGroup id="searchResults" >
+
+
+                                <div class="list-group search-result-list" id="searchResultList" >
+
+
+                                    <ui:repeat value="#{spotifyWebApi.searchResult}" var="track" varStatus="status">
+
+                                        <div class="list-group-item search-result-item" >
+                                            <div class="relative">
+
+                                                <div class="pull-right ">
+                                                    <p:commandButton type="submit" styleClass="btn btn-primary" value="Play Now!" action="#{spotifyControllerBean.playTrackWithId(track.id)}" style="margin-right: 5px;" update=":playController:currentlyPlaying" />
+                                                    <p:commandButton type="submit" styleClass="btn btn-primary" value="Add to Queue" action="#{spotifyControllerBean.addToQueue(track.id)}" update=":playQueue :script"/>
+
+                                                </div>
+
+                                                <div class="pull-left sample-img-container" track-id="#{track.id}">
+                                                    <img src="#{track.albumCoverUrlSmall}"/>
+
+                                                    <div class="sample-status-container">
+                                                        <i class="fa fa-pause sample-status-text" id="statusIcon"></i>
+                                                    </div>
+                                                </div>
+
+                                                <div class="inline-block user-info">
+                                                    <h2 style="margin-top: 10px;">#{track.title}</h2>
+                                                    <h4>#{track.artists}</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="list-devider"/>
+
+                                    </ui:repeat>
+
+                                    <h:panelGroup rendered="#{spotifyWebApi.searchResult.size() == 0}" > 
+                                        <h3>Nothing Found!</h3>
+                                    </h:panelGroup>
+
+
+                                </div>
+
+                            </h:panelGroup>
+                        </h:form>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="addChoice" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <!-- Bootstrap core JavaScript 
+================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />  
+        <h:outputScript library="js" name="jquery.slimscroll.min.js" />
+        <h:outputScript library="js" name="powerange.min.js" />
+
+        <h:outputScript library="js" name="jquery.sglide.2.1.2.min.js" />
+
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+        <h:form>
+            <p:remoteCommand name="updateCoverAndQueue" update=":playQueue :script :playController:currentlyPlaying" />
+        </h:form>
+
+        <h:form id="volume-form" styleClass="invisible">
+            <p:commandButton id="setVolume" action="#{spotifyControllerBean.changeVolume}" />
+        </h:form>
+
+
+        <script>
+
+            $("#infobutton").click(function () {
+                $('#infoModal').modal('toggle');
+            });
+            $("#addSongButton").click(function () {
+                $('#addSongModal').modal('toggle');
+            });
+            $('#addSongModal').on('shown.bs.modal', function () {
+                $('.trackSearchQuery').focus();
+            });
+            $('#addSongModal').on('hide.bs.modal', function () {
+
+                stopMusic();
+            });
+
+            function searchScrollBar() {
+                if (!navigator.platform === "iPhone") {
+                    $('#searchResultList').slimScroll({
+                        height: getResultOptimalHeight()
+                    });
+                }
+            }
+
+            function stopMusic() {
+                if (audioObject !== null) {
+                    if (!audioObject.paused) {
+                        audioObject.pause();
+                    }
+                }
+            }
+            $(document).ready(function () {
+                $("#volumeController").change(function () {
+                    var newval = $(this).val();
+                    console.log(newval);
+                    // document.getElementById('volume-form:newVolume').value = newval;
+                    document.getElementById('volume-form:setVolume').click();
+                });
+            });
+
+            $(document).ready(function () {
+
+
+                //var elem = document.querySelector('.js-range');
+                //var init = new Powerange(elem, {hideRange: true, start: #{spotifyControllerBean.currentlyPlaying.volume}});
+
+
+                //elem.onchange = function () {
+                //   console.log(elem.value);
+                // };
+            });
+
+
+
+        </script>
+
+        <script language="javascript" type="text/javascript">
+            var wsUri = "ws://skarselden.se/jazzbot/infosocket";
+            //var wsUri = "ws://localhost:8090/jazzbot/infosocket";
+
+            $(document).ready(function () {
+                initWebSocket();
+            });
+
+            function initWebSocket()
+            {
+                websocket = new WebSocket(wsUri);
+                websocket.onopen = function (evt) {
+                    onOpen(evt);
+                };
+                websocket.onclose = function (evt) {
+                    onClose(evt);
+                };
+                websocket.onmessage = function (evt) {
+                    onMessage(evt);
+                };
+                websocket.onerror = function (evt) {
+                    onError(evt);
+                };
+            }
+
+            function onOpen(evt)
+            {
+            }
+
+            function onClose(evt)
+            {
+                console.log("DISCONNECTED");
+            }
+            function onMessage(evt)
+            {
+                console.log(evt.data);
+                obj = JSON.parse(evt.data);
+                if (obj.code === 1) { //Reload cover and stuff
+                    updateCoverAndQueue();
+                    console.log("updateCoverAndQueue");
+                }
+
+            }
+
+            function onError(evt)
+            {
+                console.log("error");
+
+            }
+
+        </script> 
+        <h:panelGroup id="script">       
+
+            <script>
+
+                var audioObject = null;
+                
+                function fetchTrack(trackId, callback) {
+                    console.log("Getting track id:" + trackId);
+                    $.ajax({
+                        url: 'https://api.spotify.com/v1/tracks/' + trackId,
+                        success: function (response) {
+                            callback(response);
+                        }
+                    });
+                }
+
+                $(document).ready(function () {
+                    searchScrollBar();
+                    $(".sample-img-container").click(function (event) {
+
+                        var selected = $(this).find('#statusIcon');
+                        if (audioObject !== null) {
+                            if (!audioObject.paused) {
+                                audioObject.pause();
+                            }
+                        }
+                        if (selected.hasClass('fa-play')) {
+                            audioObject.pause();
+                        } else {
+                            selected.removeClass('fa-pause');
+                            selected.addClass('fa-play');
+                            fetchTrack(this.getAttribute('track-id'), function (data) {
+
+                                audioObject = new Audio(data.preview_url);
+                                audioObject.volume = 0.3;
+                                audioObject.play();
+                                audioObject.addEventListener('ended', function () {
+                                    selected.removeClass('fa-play');
+                                    selected.addClass('fa-pause');
+                                });
+                                audioObject.addEventListener('pause', function () {
+                                    selected.removeClass('fa-play');
+                                    selected.addClass('fa-pause');
+                                });
+                            });
+                        }
+                    });
+                });
+
+            </script>
+
+
+        </h:panelGroup>
+    </h:body>
+</html>
+

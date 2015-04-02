@@ -1,0 +1,146 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2015-jan-17, 22:41:11
+    Author     : Teddy
+*/
+/*
+#search-form, .form-control {
+    margin-bottom: 20px;
+}
+.cover {
+    width: 64px;
+    height: 64px;
+    display: inline-block;
+    background-size: cover;
+}
+.cover:hover {
+    cursor: pointer;
+}
+.cover.playing {
+    border: 2px solid #e45343;
+}
+*/
+.img-responsive-custom
+{
+    display: block;
+    max-height: 100%; 
+    max-width: 100%; 
+    margin: 0 auto;
+}
+
+.currently-playing-responsive
+{
+    max-width: 640px;
+    margin: 0px auto;
+
+}
+
+.cover-img-container{
+    position: relative;
+    width: 100%;
+}
+
+.volume-container{
+    bottom: 0;
+    right:0;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    position: absolute;
+}
+
+
+
+.track-info-container{
+    top:0;
+    left:0;
+    padding-left: 10px;
+    position: absolute;
+}
+
+.track-info-text { 
+    color: white; 
+    letter-spacing: -1px;  
+    background: rgb(0, 0, 0); /* fallback color */
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px; 
+}
+
+.sample-img-container{
+    position: relative;
+    display: inline-block; /* added */
+    overflow: hidden; /* added */
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.sample-img-container img {
+    width:100%;
+}
+
+.sample-status-container{
+
+    //Need better value for top
+    display: block;
+    font-size: 30px;
+    position: absolute;
+    top: 30%; 
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    color: inherit;
+
+}
+
+.sample-status-text { 
+    color: white; 
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+
+@media (max-height: 500px) {
+    /* some CSS for small resolution */
+
+    .search-result-list{
+        overflow: auto;
+        height: 220px;
+        //overflow-style: panner;
+    }
+}
+@media (min-height: 500px) {
+    /* some CSS for small resolution */
+
+    .search-result-list{
+        overflow: auto;
+        height: 500px;
+        //overflow-style: panner;
+    }
+}
+
+
+
+.search-result-item{
+}
+
+.list-devider{
+    background-color: #485563;
+    height: 5px;
+}
+
+.progress-bar.slow{
+    -webkit-transition:width 3s linear;
+    -o-transition:width 3s linear;
+    transition:width 3s linear
+}
+
+.notransition {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    -ms-transition: none !important;
+    transition: none !important;
+}
